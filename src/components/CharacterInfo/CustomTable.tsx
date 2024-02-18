@@ -1,42 +1,44 @@
 import React from "react";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "grommet";
-import { Character } from "../../models";
 
-interface CustomTableProps {
-  characters: Character[];
+export interface CustomTableColumn<T> {
+  name: string;
+  value: (record: T) => string | number;
 }
 
-export const CustomTable: React.FC<CustomTableProps> = ({ characters }) => {
+interface CustomTableProps<T> {
+  columns: CustomTableColumn<T>[];
+  data: T[];
+  dataKey: (record: T) => React.Key;
+}
+
+export function CustomTable<T>({
+  data,
+  columns,
+  dataKey,
+}: CustomTableProps<T>) {
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableCell scope="col" border="bottom">
-            Name
-          </TableCell>
-          <TableCell scope="col" border="bottom">
-            House
-          </TableCell>
-          <TableCell scope="col" border="bottom">
-            Gender
-          </TableCell>
-          <TableCell scope="col" border="bottom">
-            Species
-          </TableCell>
+          {columns.map((column) => (
+            <TableCell key={column.name} scope="col" border="bottom">
+              {column.name}
+            </TableCell>
+          ))}
         </TableRow>
       </TableHeader>
       <TableBody>
-        {characters.map((character) => (
-          <TableRow key={character.id}>
-            <TableCell scope="row">{character.name}</TableCell>
-            <TableCell scope="row">
-              {character.house === "" ? "---" : character.house}
-            </TableCell>
-            <TableCell scope="row">{character.gender}</TableCell>
-            <TableCell scope="row">{character.species}</TableCell>
+        {data.map((record) => (
+          <TableRow key={dataKey(record)}>
+            {columns.map((column) => (
+              <TableCell key={`${dataKey(record)}:${column.name}`} scope="row">
+                {column.value(record)}
+              </TableCell>
+            ))}
           </TableRow>
         ))}
       </TableBody>
     </Table>
   );
-};
+}

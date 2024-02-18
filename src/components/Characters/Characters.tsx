@@ -13,5 +13,28 @@ export const Characters: React.FC = () => {
     dispatch(getCharacters());
   }, []);
 
-  return <CustomTable characters={characters} />;
+  return (
+    <CustomTable
+      data={characters}
+      columns={[
+        {
+          name: "Name",
+          value: (character) => character.name,
+        },
+        {
+          name: "House",
+          value: (character) => character.house,
+        },
+        {
+          name: "Gender",
+          value: (character) => character.gender,
+        },
+        {
+          name: "Species",
+          value: (character) => character.species,
+        },
+      ]}
+      dataKey={(character) => character.id}
+    />
+  );
 };
