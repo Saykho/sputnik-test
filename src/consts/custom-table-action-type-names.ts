@@ -5,4 +5,5 @@ export const CustomTableActionTypeNames = {
   [CustomTableActionType.Edit]: "Редактировать",
   [CustomTableActionType.View]: "Просмотреть",
   [CustomTableActionType.Create]: "Создать",
+  [CustomTableActionType.Custom]: "add customRender",
 };

@@ -3,4 +3,5 @@ export enum CustomTableActionType {
   Edit = "Edit",
   View = "View",
   Delete = "Delete",
+  Custom = "Custom",
 }

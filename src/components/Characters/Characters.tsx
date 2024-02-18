@@ -1,11 +1,16 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Button } from "grommet";
 import { useAppDispatch } from "../../hooks";
 import { getCharactersInfo } from "../../store/slices/character-slice";
 import { getCharacters } from "../../store/async-actions";
 import { CustomTable } from "../CustomTable";
 import { Character } from "../../models";
 import { CustomTableActionType } from "../../enum";
+
+const SendCharacterButton = ({ name }: Character) => {
+  return <Button label={`Отправить сообщение для ${name}`} />;
+};
 
 export const Characters: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -45,10 +50,24 @@ export const Characters: React.FC = () => {
         {
           type: CustomTableActionType.Delete,
           onClick: onUpdate,
+          actionKey: CustomTableActionType.Delete,
         },
         {
           type: CustomTableActionType.Edit,
           onClick: onUpdate,
+          actionKey: CustomTableActionType.Edit,
+        },
+        {
+          type: CustomTableActionType.Custom,
+          onClick: onUpdate,
+          customRender: SendCharacterButton,
+          actionKey: CustomTableActionType.Custom,
+        },
+        {
+          type: CustomTableActionType.Custom,
+          onClick: onUpdate,
+          customRender: SendCharacterButton,
+          actionKey: "asdlfwoe",
         },
       ]}
     />

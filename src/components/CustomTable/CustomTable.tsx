@@ -47,13 +47,29 @@ export function CustomTable<T>({
 
             {actions?.length && (
               <TableCell>
-                {actions.map((action) => (
-                  <Button
-                    key={action.type}
-                    label={CustomTableActionTypeNames[action.type]}
-                    onClick={() => action.onClick(record)}
-                  />
-                ))}
+                {actions.map((action) => {
+                  if (
+                    action.type === CustomTableActionType.Custom &&
+                    action.customRender
+                  ) {
+                    return (
+                      <div
+                        key={action.actionKey}
+                        onClick={() => action.onClick(record)}
+                      >
+                        {action.customRender(record)}
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <Button
+                      key={action.actionKey}
+                      label={CustomTableActionTypeNames[action.type]}
+                      onClick={() => action.onClick(record)}
+                    />
+                  );
+                })}
               </TableCell>
             )}
           </TableRow>
