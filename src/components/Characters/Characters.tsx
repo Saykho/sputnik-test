@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../hooks";
 import { getCharactersInfo } from "../../store/slices/character-slice";
 import { getCharacters } from "../../store/async-actions";
-import { CustomTable } from "../CharacterInfo";
+import { CustomTable } from "../CustomTable";
 
 export const Characters: React.FC = () => {
   const dispatch = useAppDispatch();
