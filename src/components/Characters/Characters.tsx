@@ -4,6 +4,8 @@ import { useAppDispatch } from "../../hooks";
 import { getCharactersInfo } from "../../store/slices/character-slice";
 import { getCharacters } from "../../store/async-actions";
 import { CustomTable } from "../CustomTable";
+import { Character } from "../../models";
+import { CustomTableActionType } from "../../enum";
 
 export const Characters: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -12,6 +14,10 @@ export const Characters: React.FC = () => {
   useEffect(() => {
     dispatch(getCharacters());
   }, []);
+
+  const onUpdate = (character: Character) => {
+    console.log("On delete", character);
+  };
 
   return (
     <CustomTable
@@ -35,6 +41,16 @@ export const Characters: React.FC = () => {
         },
       ]}
       dataKey={(character) => character.id}
+      actions={[
+        {
+          type: CustomTableActionType.Delete,
+          onClick: onUpdate,
+        },
+        {
+          type: CustomTableActionType.Edit,
+          onClick: onUpdate,
+        },
+      ]}
     />
   );
 };
