@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Button } from "grommet";
 import { useAppDispatch } from "../../hooks";
@@ -15,6 +15,8 @@ const SendCharacterButton = ({ name }: Character) => {
 export const Characters: React.FC = () => {
   const dispatch = useAppDispatch();
   const characters = useSelector(getCharactersInfo);
+  const [page, setPage] = useState<number>(1);
+  const pageSize = 10;
 
   useEffect(() => {
     dispatch(getCharacters());
@@ -22,6 +24,10 @@ export const Characters: React.FC = () => {
 
   const onUpdate = (character: Character) => {
     console.log("On delete", character);
+  };
+
+  const onPageChange = (newPage: number) => {
+    setPage(newPage);
   };
 
   return (
@@ -70,6 +76,11 @@ export const Characters: React.FC = () => {
           actionKey: "asdlfwoe",
         },
       ]}
+      pagination={{
+        pageSize,
+        currentPage: page,
+        onPageChange,
+      }}
     />
   );
 };
