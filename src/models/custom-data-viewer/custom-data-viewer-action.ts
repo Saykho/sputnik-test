@@ -1,7 +1,7 @@
 import React from "react";
 import { CustomTableActionType } from "../../enum";
 
-export interface CustomTableAction<T> {
+export interface CustomDataViewerAction<T> {
   actionKey: React.Key;
   type: CustomTableActionType;
   onClick: (record: T) => void;

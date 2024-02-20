@@ -1,8 +1,8 @@
-import { CustomTablePagination } from "../../models";
+import { CustomDataViewerPagination } from "../../models";
 
 export function usePagination<T>(
   data: T[],
-  pagination?: CustomTablePagination,
+  pagination?: CustomDataViewerPagination,
 ) {
   if (!pagination) {
     return data;

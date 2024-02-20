@@ -6,10 +6,10 @@ import { getCharactersInfo } from "../../store/slices/character-slice";
 import { getCharacters } from "../../store/async-actions";
 import { Character } from "../../models";
 import { CustomFilter } from "../CustomFilter";
-import { CustomTable } from "../CustomTable";
 import { CustomTableActionType } from "../../enum";
 import { useFilter } from "../CustomFilter/useFilter";
 import { pageSize } from "../../consts";
+import { CustomDataViewer } from "../CustomDataViewer";
 
 const SendCharacterButton = ({ name }: Character) => {
   return <Button label={`Отправить сообщение для ${name}`} />;
@@ -18,6 +18,8 @@ const SendCharacterButton = ({ name }: Character) => {
 export const Characters: React.FC = () => {
   const dispatch = useAppDispatch();
   const characters = useSelector(getCharactersInfo);
+
+  const [isCardViewMode, setIsCardViewMode] = useState(false);
 
   const [page, setPage] = useState<number>(1);
 
@@ -52,6 +54,14 @@ export const Characters: React.FC = () => {
 
   return (
     <>
+      <Button
+        label={
+          isCardViewMode
+            ? "Перключить в табличный вид"
+            : "Перключить в карточный вид"
+        }
+        onClick={() => setIsCardViewMode((prev) => !prev)}
+      />
       <CustomFilter
         data={characters}
         filterName="House"
@@ -97,7 +107,7 @@ export const Characters: React.FC = () => {
         </Layer>
       )}
 
-      <CustomTable
+      <CustomDataViewer
         data={dataBySpecies}
         columns={[
           {
@@ -151,7 +161,7 @@ export const Characters: React.FC = () => {
           currentPage: page,
           onPageChange,
         }}
-        isCardView
+        isCardView={isCardViewMode}
         card={{
           cardHeader: (character) => character.name,
         }}
