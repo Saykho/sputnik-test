@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Button, Pagination } from "grommet";
 import {
   CustomCardHeader,
@@ -39,6 +39,10 @@ export function CustomDataViewer<T>({
   const createAction = allActions.find(
     (a) => a.type === CustomTableActionType.Create,
   );
+
+  useEffect(() => {
+    pagination?.onPageChange(1);
+  }, [sourceData?.length]);
 
   return (
     <>
