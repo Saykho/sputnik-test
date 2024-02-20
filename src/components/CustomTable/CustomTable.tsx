@@ -62,29 +62,31 @@ export function CustomTable<T>({
 
               {actions?.length && (
                 <TableCell>
-                  {actions.map((action) => {
-                    if (
-                      action.type === CustomTableActionType.Custom &&
-                      action.customRender
-                    ) {
-                      return (
-                        <div
-                          key={action.actionKey}
-                          onClick={() => action.onClick(record)}
-                        >
-                          {action.customRender(record)}
-                        </div>
-                      );
-                    }
+                  <Box direction="row" align="end" gap="small">
+                    {actions.map((action) => {
+                      if (
+                        action.type === CustomTableActionType.Custom &&
+                        action.customRender
+                      ) {
+                        return (
+                          <div
+                            key={action.actionKey}
+                            onClick={() => action.onClick(record)}
+                          >
+                            {action.customRender(record)}
+                          </div>
+                        );
+                      }
 
-                    return (
-                      <Button
-                        key={action.actionKey}
-                        label={CustomTableActionTypeNames[action.type]}
-                        onClick={() => action.onClick(record)}
-                      />
-                    );
-                  })}
+                      return (
+                        <Button
+                          key={action.actionKey}
+                          label={CustomTableActionTypeNames[action.type]}
+                          onClick={() => action.onClick(record)}
+                        />
+                      );
+                    })}
+                  </Box>
                 </TableCell>
               )}
             </TableRow>
