@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Pagination } from "grommet";
+import { Box, Button, Pagination } from "grommet";
 import {
   CustomCardHeader,
   CustomDataViewerAction,
@@ -9,6 +9,8 @@ import {
 import { usePagination } from "../CustomTable/usePagination";
 import { CustomCards } from "../CustomCards";
 import { CustomTable } from "../CustomTable";
+import { CustomTableActionType } from "../../enum";
+import { CustomTableActionTypeNames } from "../../consts";
 
 interface CustomComponentProps<T> {
   columns: CustomDataViewerColumn<T>[];
@@ -30,23 +32,36 @@ export function CustomDataViewer<T>({
   columns,
 }: CustomComponentProps<T>) {
   const data = usePagination(sourceData, pagination);
+  const allActions = actions ?? [];
+  const recordActions = allActions.filter(
+    (a) => a.type !== CustomTableActionType.Create,
+  );
+  const createAction = allActions.find(
+    (a) => a.type === CustomTableActionType.Create,
+  );
 
   return (
     <>
+      {createAction && (
+        <Button
+          label={CustomTableActionTypeNames[createAction.type]}
+          onClick={() => createAction?.onClick(null)}
+        />
+      )}
       {isCardView ? (
         <CustomCards
           data={data}
           card={card}
           columns={columns}
           dataKey={dataKey}
-          actions={actions}
+          actions={recordActions}
         />
       ) : (
         <CustomTable
           columns={columns}
           data={data}
           dataKey={dataKey}
-          actions={actions}
+          actions={recordActions}
         />
       )}
 

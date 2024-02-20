@@ -10,6 +10,7 @@ import { CustomTableActionType } from "../../enum";
 import { useFilter } from "../CustomFilter/useFilter";
 import { pageSize } from "../../consts";
 import { CustomDataViewer } from "../CustomDataViewer";
+import { ViewCharacterModal } from "../ViewCharacterModal";
 
 const SendCharacterButton = ({ name }: Character) => {
   return <Button label={`Отправить сообщение для ${name}`} />;
@@ -18,6 +19,8 @@ const SendCharacterButton = ({ name }: Character) => {
 export const Characters: React.FC = () => {
   const dispatch = useAppDispatch();
   const characters = useSelector(getCharactersInfo);
+
+  const [viewCharacter, setViewCharacter] = useState<Character | null>(null);
 
   const [isCardViewMode, setIsCardViewMode] = useState(false);
 
@@ -44,8 +47,12 @@ export const Characters: React.FC = () => {
     dispatch(getCharacters());
   }, []);
 
-  const onUpdate = (character: Character) => {
-    console.log("On delete", character);
+  const onComingSoonAction = (character: Character | null) => {
+    alert("Coming soon...");
+  };
+
+  const onView = (character: Character | null) => {
+    setViewCharacter(character);
   };
 
   const onPageChange = (newPage: number) => {
@@ -131,27 +138,27 @@ export const Characters: React.FC = () => {
         actions={[
           {
             type: CustomTableActionType.Create,
-            onClick: onUpdate,
+            onClick: onComingSoonAction,
             actionKey: CustomTableActionType.Create,
           },
           {
             type: CustomTableActionType.View,
-            onClick: onUpdate,
+            onClick: onView,
             actionKey: CustomTableActionType.View,
           },
           {
             type: CustomTableActionType.Edit,
-            onClick: onUpdate,
+            onClick: onComingSoonAction,
             actionKey: CustomTableActionType.Edit,
           },
           {
             type: CustomTableActionType.Delete,
-            onClick: onUpdate,
+            onClick: onComingSoonAction,
             actionKey: CustomTableActionType.Delete,
           },
           {
             type: CustomTableActionType.Custom,
-            onClick: onUpdate,
+            onClick: onComingSoonAction,
             customRender: SendCharacterButton,
             actionKey: CustomTableActionType.Custom,
           },
@@ -165,6 +172,11 @@ export const Characters: React.FC = () => {
         card={{
           cardHeader: (character) => character.name,
         }}
+      />
+
+      <ViewCharacterModal
+        character={viewCharacter}
+        onClose={() => setViewCharacter(null)}
       />
     </>
   );
