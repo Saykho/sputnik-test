@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Box, Button, Pagination } from "grommet";
 import {
-  CustomCardHeader,
   CustomDataViewerAction,
   CustomDataViewerColumn,
   CustomDataViewerPagination,
@@ -19,11 +18,9 @@ interface CustomComponentProps<T> {
   actions?: CustomDataViewerAction<T>[];
   pagination?: CustomDataViewerPagination;
   isCardView?: boolean;
-  card?: CustomCardHeader<T>;
 }
 
 export function CustomDataViewer<T>({
-  card,
   isCardView,
   actions,
   pagination,
@@ -55,7 +52,6 @@ export function CustomDataViewer<T>({
       {isCardView ? (
         <CustomCards
           data={data}
-          card={card}
           columns={columns}
           dataKey={dataKey}
           actions={recordActions}

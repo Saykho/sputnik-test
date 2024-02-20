@@ -4,7 +4,6 @@ import {
   Card,
   CardBody,
   CardFooter,
-  CardHeader,
   Grid,
   Text,
 } from "grommet";
@@ -14,7 +13,6 @@ import { CustomTableActionTypeNames } from "../../consts";
 import {
   CustomDataViewerAction,
   CustomDataViewerColumn,
-  CustomCardHeader,
 } from "../../models";
 
 interface CustomCardsProps<T> {
@@ -22,7 +20,6 @@ interface CustomCardsProps<T> {
   dataKey: (record: T) => React.Key;
   columns: CustomDataViewerColumn<T>[];
   actions?: CustomDataViewerAction<T>[];
-  card?: CustomCardHeader<T>;
 }
 
 export function CustomCards<T>({
@@ -30,14 +27,12 @@ export function CustomCards<T>({
   dataKey,
   actions,
   columns,
-  card,
 }: CustomCardsProps<T>) {
   return (
     <Grid align="start" columns={["auto", "auto", "auto", "auto"]} gap="small">
       {data.map((record) => (
         <Box key={dataKey(record)} pad="medium" gap="medium" width="medium">
           <Card pad="medium" gap="medium">
-            <CardHeader>{`${card?.cardHeader(record)} info`}</CardHeader>
             <CardBody gap="small">
               {columns.map((column) => (
                 <Text

@@ -169,9 +169,6 @@ export const Characters: React.FC = () => {
           onPageChange,
         }}
         isCardView={isCardViewMode}
-        card={{
-          cardHeader: (character) => character.name,
-        }}
       />
 
       <ViewCharacterModal
