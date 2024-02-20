@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   CardBody,
+  CardFooter,
   CardHeader,
   Grid,
   Pagination,
@@ -120,6 +121,35 @@ export function CustomTable<T>({
                     >{`${column.name}: ${column.value(record)}`}</Text>
                   ))}
                 </CardBody>
+                {actions?.length && (
+                  <CardFooter>
+                    <Box align="end" gap="small">
+                      {actions.map((action) => {
+                        if (
+                          action.type === CustomTableActionType.Custom &&
+                          action.customRender
+                        ) {
+                          return (
+                            <div
+                              key={action.actionKey}
+                              onClick={() => action.onClick(record)}
+                            >
+                              {action.customRender(record)}
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <Button
+                            key={action.actionKey}
+                            label={CustomTableActionTypeNames[action.type]}
+                            onClick={() => action.onClick(record)}
+                          />
+                        );
+                      })}
+                    </Box>
+                  </CardFooter>
+                )}
               </Card>
             </Box>
           ))}

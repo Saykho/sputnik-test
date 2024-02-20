@@ -120,14 +120,24 @@ export const Characters: React.FC = () => {
         dataKey={(character) => character.id}
         actions={[
           {
-            type: CustomTableActionType.Delete,
+            type: CustomTableActionType.Create,
             onClick: onUpdate,
-            actionKey: CustomTableActionType.Delete,
+            actionKey: CustomTableActionType.Create,
+          },
+          {
+            type: CustomTableActionType.View,
+            onClick: onUpdate,
+            actionKey: CustomTableActionType.View,
           },
           {
             type: CustomTableActionType.Edit,
             onClick: onUpdate,
             actionKey: CustomTableActionType.Edit,
+          },
+          {
+            type: CustomTableActionType.Delete,
+            onClick: onUpdate,
+            actionKey: CustomTableActionType.Delete,
           },
           {
             type: CustomTableActionType.Custom,
