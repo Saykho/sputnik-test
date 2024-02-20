@@ -18,8 +18,11 @@ export const ViewCharacterModal: React.FC<ViewCharacterModalProps> = ({
   return (
     <Layer onClickOutside={onClose}>
       <Box gap="medium" pad="medium">
-        <Text>Имя: {character.name}</Text>
-        <Text>Патронус: {character.patronus}</Text>
+        <Text>Name: {character.name}</Text>
+        <Text>Date of birth: {character.dateOfBirth}</Text>
+        <Text>Year of birth: {character.yearOfBirth}</Text>
+        <Text>Ancestry: {character.ancestry}</Text>
+        <Text>Patronus: {character.patronus}</Text>
         <Image src={character.image} alt="Avatar" />
       </Box>
     </Layer>

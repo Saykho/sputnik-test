@@ -11,6 +11,7 @@ import {
 import { CustomDataViewerAction, CustomDataViewerColumn } from "../../models";
 import { CustomTableActionTypeNames } from "../../consts";
 import { CustomTableActionType } from "../../enum";
+import styles from "./CustomTable.module.scss";
 
 interface CustomTableProps<T> {
   columns: CustomDataViewerColumn<T>[];
@@ -26,7 +27,7 @@ export function CustomTable<T>({
   actions,
 }: CustomTableProps<T>) {
   return (
-    <Table>
+    <Table className={styles.content__table}>
       <TableHeader>
         <TableRow>
           {columns.map((column) => (

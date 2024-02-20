@@ -10,6 +10,7 @@ import { CustomCards } from "../CustomCards";
 import { CustomTable } from "../CustomTable";
 import { CustomTableActionType } from "../../enum";
 import { CustomTableActionTypeNames } from "../../consts";
+import styles from "./CustomDataViewer.module.scss";
 
 interface CustomComponentProps<T> {
   columns: CustomDataViewerColumn<T>[];
@@ -47,6 +48,7 @@ export function CustomDataViewer<T>({
         <Button
           label={CustomTableActionTypeNames[createAction.type]}
           onClick={() => createAction?.onClick(null)}
+          className={styles.content__createButton}
         />
       )}
       {isCardView ? (

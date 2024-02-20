@@ -11,6 +11,7 @@ import { useFilter } from "../CustomFilter/useFilter";
 import { pageSize } from "../../consts";
 import { CustomDataViewer } from "../CustomDataViewer";
 import { ViewCharacterModal } from "../ViewCharacterModal";
+import styles from "./Characters.module.scss";
 
 const SendCharacterButton = ({ name }: Character) => {
   return <Button label={`Отправить сообщение для ${name}`} />;
@@ -60,22 +61,24 @@ export const Characters: React.FC = () => {
   };
 
   return (
-    <>
-      <Button
-        label={
-          isCardViewMode
-            ? "Перключить в табличный вид"
-            : "Перключить в карточный вид"
-        }
-        onClick={() => setIsCardViewMode((prev) => !prev)}
-      />
+    <div className={styles.content}>
+      <Box direction="row" className={styles.content__buttons} gap="small">
+        <Button
+          label={
+            isCardViewMode
+              ? "Перключить в табличный вид"
+              : "Перключить в карточный вид"
+          }
+          onClick={() => setIsCardViewMode((prev) => !prev)}
+        />
+        <Button label="Другие фильтры" onClick={() => setShow(true)} />
+      </Box>
       <CustomFilter
         data={characters}
         filterName="House"
         filterValue={(character) => character.house}
         onSubmit={setHouseFilters}
       />
-      <Button label="Другие фильтры" onClick={() => setShow(true)} />
       {show && (
         <Layer onClickOutside={() => setShow(false)}>
           <Box gap="medium" pad="medium" width={{ min: "medium" }} flex="grow">
@@ -175,6 +178,6 @@ export const Characters: React.FC = () => {
         character={viewCharacter}
         onClose={() => setViewCharacter(null)}
       />
-    </>
+    </div>
   );
 };

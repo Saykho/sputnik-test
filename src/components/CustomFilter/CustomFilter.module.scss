@@ -1,0 +1,7 @@
+.customFilter {
+  :global {
+    label[for="data-name"] {
+      display: none;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Data, DataFilters, Toolbar } from "grommet";
+import styles from "./CustomFilter.module.scss";
 
 export interface CustomFilterProps<T> {
   data: T[];
@@ -31,7 +32,7 @@ export function CustomFilter<T>({
       {filterName}
       <Data data={filters} onSubmit={(e: any) => onSubmit(e.value.name ?? [])}>
         <Toolbar align="center">
-          <DataFilters />
+          <DataFilters className={styles.customFilter} />
         </Toolbar>
       </Data>
     </div>
