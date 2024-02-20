@@ -2,12 +2,17 @@ import React from "react";
 import {
   Box,
   Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Grid,
   Pagination,
   Table,
   TableBody,
   TableCell,
   TableHeader,
   TableRow,
+  Text,
 } from "grommet";
 import {
   CustomTableAction,
@@ -18,12 +23,18 @@ import { CustomTableActionTypeNames } from "../../consts";
 import { CustomTableActionType } from "../../enum";
 import { usePagination } from "./usePagination";
 
+export interface CustomCardProps<T> {
+  cardHeader: (record: T) => string;
+}
+
 interface CustomTableProps<T> {
   columns: CustomTableColumn<T>[];
   data: T[];
   dataKey: (record: T) => React.Key;
   actions?: CustomTableAction<T>[];
   pagination?: CustomTablePagination;
+  isCardView?: boolean;
+  card?: CustomCardProps<T>;
 }
 
 export function CustomTable<T>({
@@ -32,6 +43,8 @@ export function CustomTable<T>({
   dataKey,
   actions,
   pagination,
+  isCardView,
+  card,
 }: CustomTableProps<T>) {
   const data = usePagination(sourceData, pagination);
 
@@ -93,6 +106,24 @@ export function CustomTable<T>({
           ))}
         </TableBody>
       </Table>
+
+      <Grid align="start" columns={["auto", "auto", "auto"]} gap="medium">
+        {isCardView &&
+          data.map((record) => (
+            <Box key={dataKey(record)} pad="large" gap="medium" width="medium">
+              <Card pad="small" gap="medium">
+                <CardHeader>{`${card?.cardHeader(record)} info`}</CardHeader>
+                <CardBody gap="small">
+                  {columns.map((column) => (
+                    <Text
+                      key={`${dataKey(record)}:${column.name}`}
+                    >{`${column.name}: ${column.value(record)}`}</Text>
+                  ))}
+                </CardBody>
+              </Card>
+            </Box>
+          ))}
+      </Grid>
 
       {pagination && (
         <Box

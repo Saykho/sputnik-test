@@ -141,6 +141,10 @@ export const Characters: React.FC = () => {
           currentPage: page,
           onPageChange,
         }}
+        isCardView
+        card={{
+          cardHeader: (character) => character.name,
+        }}
       />
     </>
   );
