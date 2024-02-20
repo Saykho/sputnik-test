@@ -1,19 +1,8 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  Grid,
-  Text,
-} from "grommet";
+import { Box, Button, Card, CardBody, CardFooter, Grid, Text } from "grommet";
 import React from "react";
 import { CustomTableActionType } from "../../enum";
 import { CustomTableActionTypeNames } from "../../consts";
-import {
-  CustomDataViewerAction,
-  CustomDataViewerColumn,
-} from "../../models";
+import { CustomDataViewerAction, CustomDataViewerColumn } from "../../models";
 
 interface CustomCardsProps<T> {
   data: T[];
